@@ -3,10 +3,14 @@ import http from "http";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import createError from "http-errors";
 import dbConnect from "db";
+import combineRouter from "./api";
+import passport from "passport";
+import createError from "http-errors";
+import "config/passport"; // 명시적으로 import 안해주면 strategy 적용 안됨
 
 dotenv.config();
+
 let app = express();
 dbConnect();
 
@@ -22,9 +26,12 @@ app.use(morgan("dev"));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false })); // querystring 사용
+app.use(passport.initialize());
+
+app.use("/api/", combineRouter);
 
 app.use((req, res, next) => {
-  next(create);
+  next(createError(404));
 });
 
 //
