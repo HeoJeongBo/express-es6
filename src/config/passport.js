@@ -34,3 +34,38 @@ passport.use(
     }
   )
 );
+
+passport.use(
+  "login",
+  new LocalStrategy(
+    {
+      usernameField: "id",
+      passwordField: "password",
+      session: false
+    },
+    async (id, password, done) => {
+      try {
+        const existUser = await User.findOne({ id: id });
+        if (!existUser) {
+          return done(null, false, { message: "ID가 존재하지 않습니다" });
+        }
+        bcrypt
+          .compare(password, existUser.password)
+          .then(response => {
+            if (response) {
+              console.log("user found & authenicated");
+              return done(null, existUser);
+            } else {
+              console.log("password is not corrected");
+              return done(null, false, { message: "비밀번호가 틀렸습니다" });
+            }
+          })
+          .catch(error => {
+            console.log("bcrypt error");
+          });
+      } catch (error) {
+        done(error);
+      }
+    }
+  )
+);
