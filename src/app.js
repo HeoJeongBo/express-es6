@@ -28,7 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false })); // querystring 사용
 app.use(passport.initialize());
 
-app.use("/api/", combineRouter);
+app.use("/api", combineRouter);
 
 app.use((req, res, next) => {
   next(createError(404));
