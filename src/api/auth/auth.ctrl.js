@@ -2,7 +2,6 @@ import User from "db/schemas/user";
 import passport from "passport";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import Joi from "joi";
 
 dotenv.config();
 

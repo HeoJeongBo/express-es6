@@ -3,7 +3,7 @@ import http from "http";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import dbConnect from "db";
+import dbConnect from "./db";
 import combineRouter from "./api";
 import passport from "passport";
 import createError from "http-errors";
@@ -11,18 +11,26 @@ import "config/passport"; // 명시적으로 import 안해주면 strategy 적용
 
 dotenv.config();
 
-let app = express();
+const app = express();
 dbConnect();
 
 const port = process.env.PORT || "4000";
 
-app.server = http.createServer(app);
-
-app.server.listen(port);
-app.server.on("error", onError);
-app.server.on("listening", onListening);
-
-app.use(morgan("dev"));
+const server = http
+  .createServer(app)
+  .listen(port)
+  .on("error", onError)
+  .on("listening", onListening);
+/*
+server.listen(port);
+server.on("error", onError);
+server.on("listening", onListening);
+*/
+if (process.env.NODE_ENV === "production") {
+  app.use(morgan("combined"));
+} else {
+  app.use(morgan("dev"));
+}
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false })); // querystring 사용
@@ -62,7 +70,7 @@ function onError(error) {
  */
 
 function onListening() {
-  var addr = app.server.address();
+  var addr = server.address();
   var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
   console.log("express listening on " + port);
 }
