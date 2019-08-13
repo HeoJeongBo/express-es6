@@ -10,7 +10,9 @@ const dbConnect = () => {
     db.once("open", () => {
       console.log("mongodb is connected");
     });
-    mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true });
+    mongoose.connect(process.env.MONGO_URI_DEVELOPMENT, {
+      useNewUrlParser: true
+    });
   };
   connect();
   mongoose.connection.on("error", error => {

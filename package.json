@@ -6,7 +6,7 @@
     "start:dev": "NODE_PATH=src nodemon --exec babel-node src/app.js",
     "start:test": "pm2 start src/app.js --interpreter babel-node",
     "start": "pm2 start dist/app.js",
-    "build": "babel src/ -d dist"
+    "build": "webpack"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
