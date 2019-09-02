@@ -7,8 +7,6 @@ async function movie(req, res, next) {
     method: "GET",
     headers: {
       "Access-Control-Origin": "*",
-      "X-Naver-Client-Id": "XfAx6Fek9WKL7vKCJ9e8",
-      "X-Naver-Client-Secret": "mT8wg_ZrgM",
       "Content-Type": "application/json"
     },
     url: `https://openapi.naver.com/v1/search/movie.json?query=${encodedURI}&display=100&start=1`
