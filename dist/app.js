@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -152,32 +152,38 @@ module.exports = require("http-errors");
 
 /***/ }),
 /* 11 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-__webpack_require__(12);
-module.exports = __webpack_require__(15);
-
+module.exports = require("cors");
 
 /***/ }),
 /* 12 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("@babel/polyfill");
+__webpack_require__(13);
+module.exports = __webpack_require__(16);
+
 
 /***/ }),
 /* 13 */
 /***/ (function(module, exports) {
 
-module.exports = require("querystring");
+module.exports = require("@babel/polyfill");
 
 /***/ }),
 /* 14 */
 /***/ (function(module, exports) {
 
-module.exports = require("passport-jwt");
+module.exports = require("querystring");
 
 /***/ }),
 /* 15 */
+/***/ (function(module, exports) {
+
+module.exports = require("passport-jwt");
+
+/***/ }),
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -422,7 +428,7 @@ router.post("/login", login); // router.post("/login", userCtrl.login);
 
 /* harmony default export */ var auth = (router);
 // EXTERNAL MODULE: external "querystring"
-var external_querystring_ = __webpack_require__(13);
+var external_querystring_ = __webpack_require__(14);
 
 // CONCATENATED MODULE: ./src/db/schemas/schedule.js
 
@@ -614,7 +620,7 @@ var external_http_errors_default = /*#__PURE__*/__webpack_require__.n(external_h
 var external_passport_local_ = __webpack_require__(5);
 
 // EXTERNAL MODULE: external "passport-jwt"
-var external_passport_jwt_ = __webpack_require__(14);
+var external_passport_jwt_ = __webpack_require__(15);
 
 // CONCATENATED MODULE: ./src/config/passport.js
 function passport_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -757,6 +763,10 @@ function () {
     return _ref2.apply(this, arguments);
   };
 }()));
+// EXTERNAL MODULE: external "cors"
+var external_cors_ = __webpack_require__(11);
+var external_cors_default = /*#__PURE__*/__webpack_require__.n(external_cors_);
+
 // CONCATENATED MODULE: ./src/app.js
 
 
@@ -768,6 +778,7 @@ function () {
 
 
  // 명시적으로 import 안해주면 strategy 적용 안됨
+
 
 external_dotenv_default.a.config();
 var app = external_express_default()();
@@ -784,6 +795,7 @@ if (true) {
   app.use(external_morgan_default()("combined"));
 } else {}
 
+app.use(external_cors_default()());
 app.use(external_cookie_parser_default()());
 app.use(external_express_default.a.json());
 app.use(external_express_default.a.urlencoded({

@@ -8,6 +8,7 @@ import combineRouter from "./api";
 import passport from "passport";
 import createError from "http-errors";
 import "config/passport"; // 명시적으로 import 안해주면 strategy 적용 안됨
+import cors from "cors";
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ if (process.env.NODE_ENV === "production") {
 } else {
   app.use(morgan("dev"));
 }
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false })); // querystring 사용
