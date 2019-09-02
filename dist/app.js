@@ -220,7 +220,7 @@ var db_dbConnect = function dbConnect() {
     db.once("open", function () {
       console.log("mongodb is connected");
     });
-    external_mongoose_default.a.connect("mongodb://localhost:27017/scheduler", {
+    external_mongoose_default.a.connect("3.16.1.10:27017/scheduler", {
       useNewUrlParser: true
     });
   };
